@@ -16,6 +16,8 @@ public class Principal {
 
         Imagen.crearDocumentoConImagenLocal("lol-cuadrado.jpg");
 
+        Imagen.crearDocumentConImagenInternet("https://i.imgur.com/JVMcwMs.jpg");
+
         Tabla.generarTablaPDF();
 
     }
