@@ -5,6 +5,7 @@ import com.lowagie.text.Image;
 import com.lowagie.text.List;
 import com.lowagie.text.alignment.HorizontalAlignment;
 import com.lowagie.text.pdf.PdfWriter;
+import com.lowagie.text.pdf.draw.DottedLineSeparator;
 
 import java.awt.*;
 import java.io.FileNotFoundException;
@@ -18,22 +19,34 @@ public class Tabla {
         Document document = new Document();
 
         PdfWriter.getInstance(document, new FileOutputStream("tablas.pdf"));
-        //imagen de prueba
-        Image imagen = Image.getInstance("lol-rectangulo.jpg");
-        imagen.scaleAbsolute(150,150);
+
 
 
         document.open();
+
+        for (int i = 0; i < 50; i++){
+            trabajarMarca(document);
+        }
+
+        document.close();
+    }
+
+    private static void trabajarMarca(Document document) throws IOException {
+        //imagen de prueba
+        Image imagen = Image.getInstance("lol-cuadrado.jpg");
+        imagen.scaleAbsolute(150,150);
         //tabla para fotos
         Table table = new Table(2);
         table.setBorderWidth(1);
         table.setPadding(5);
         table.setSpacing(5);
+        table.setWidth(100);
 
         //tabla para sabores
         Table tablaSabores = new Table(2);
         tablaSabores.setPadding(5);
         tablaSabores.setBorderWidth(1);
+        tablaSabores.setWidth(100);
 
         //por cada marca
         Cell brandCell = new Cell();
@@ -58,30 +71,32 @@ public class Tabla {
         //trabajar con los sabores - tamaños
         tablaSabores.addCell("Sabores");
         tablaSabores.addCell("Tamaños");
+        Cell tamanioCell;
+        for (int i = 0; i < 30; i++){
+            tablaSabores.addCell("SABOR 1");
 
+            tamanioCell = new Cell();
+            tamanioCell.add(new Chunk("TAM 1 "));
+            tamanioCell.add(new Chunk("TAM 1 "));
+            tamanioCell.add(new Chunk("TAM 1 "));
+            tamanioCell.add(new Chunk("TAM 1 "));
+            tamanioCell.add(new Chunk("TAM 1 "));
+            tamanioCell.add(new Chunk("TAM 1 "));
+            tamanioCell.add(new Chunk("TAM 1 "));
 
-
-
-        //guardarlo en el contenedor de sabores
+            tablaSabores.addCell(tamanioCell);
+        }
         contenedorSaboresCell.add(tablaSabores);
 
-//        table.addCell(contenedorSaboresCell,0,1);
+        //ingreso al documento
+        Paragraph p = new Paragraph("NOMBRE DE MARCA");
+        p.setAlignment(Element.ALIGN_CENTER);
+        p.setSpacingBefore(10);
 
-
-
-
-
-
-
-
-
-        //ingreso en tabla
-
-
+        document.add(p);
         document.add(table);
         document.add(tablaSabores);
 
-        document.close();
     }
 
 }
