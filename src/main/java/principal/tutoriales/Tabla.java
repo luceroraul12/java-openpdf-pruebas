@@ -73,17 +73,21 @@ public class Tabla {
         tablaSabores.addCell("Sabores");
         tablaSabores.addCell("Tamaños");
         Cell tamanioCell;
-        for (int i = 0; i < 30; i++){
-            tablaSabores.addCell("SABOR 1");
+        //for de sabores
+        for (int i = 0; i < Math.floor(Math.random()*10+1); i++){
+            tablaSabores.addCell("SABOR "+i);
 
             tamanioCell = new Cell();
+            //For de tamaños
+            for (int j = 0; j < Math.floor(Math.random()*5+1); j++){
+                tamanioCell.add(new Chunk("TAM "+j+" "));
+            }
+          /*  tamanioCell.add(new Chunk("TAM 1 "));
             tamanioCell.add(new Chunk("TAM 1 "));
             tamanioCell.add(new Chunk("TAM 1 "));
             tamanioCell.add(new Chunk("TAM 1 "));
             tamanioCell.add(new Chunk("TAM 1 "));
-            tamanioCell.add(new Chunk("TAM 1 "));
-            tamanioCell.add(new Chunk("TAM 1 "));
-            tamanioCell.add(new Chunk("TAM 1 "));
+            tamanioCell.add(new Chunk("TAM 1 "));*/
 
             tablaSabores.addCell(tamanioCell);
         }
