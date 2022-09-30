@@ -1,6 +1,7 @@
 package principal.tutoriales;
 
 import com.lowagie.text.*;
+import com.lowagie.text.Font;
 import com.lowagie.text.Image;
 import com.lowagie.text.List;
 import com.lowagie.text.alignment.HorizontalAlignment;
@@ -89,7 +90,10 @@ public class Tabla {
         contenedorSaboresCell.add(tablaSabores);
 
         //ingreso al documento
-        Paragraph p = new Paragraph("NOMBRE DE MARCA");
+        Font font = new Font();
+        font.setColor(Color.BLUE);
+        font.setSize(10);
+        Paragraph p = new Paragraph("NOMBRE DE MARCA",font);
         p.setAlignment(Element.ALIGN_CENTER);
         p.setSpacingBefore(10);
 
