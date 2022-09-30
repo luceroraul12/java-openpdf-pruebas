@@ -1,66 +1,85 @@
 package principal.tutoriales;
 
 import com.lowagie.text.*;
+import com.lowagie.text.Image;
 import com.lowagie.text.List;
+import com.lowagie.text.alignment.HorizontalAlignment;
 import com.lowagie.text.pdf.PdfWriter;
 
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class Tabla {
 
-    public static void generarTablaPDF() throws FileNotFoundException {
+    public static void generarTablaPDF() throws IOException {
 
         Document document = new Document();
 
         PdfWriter.getInstance(document, new FileOutputStream("tablas.pdf"));
+        //imagen de prueba
+        Image imagen = Image.getInstance("lol-rectangulo.jpg");
+        imagen.scaleAbsolute(150,150);
+
 
         document.open();
-
-        Table table = new Table(3);
+        //tabla para fotos
+        Table table = new Table(2);
         table.setBorderWidth(1);
         table.setPadding(5);
         table.setSpacing(5);
 
-        table.addCell("IMG");
-        Cell cell = new Cell("MARCA");
-        cell.setColspan(2);
-        table.addCell(cell);
+        //tabla para sabores
+        Table tablaSabores = new Table(2);
+        tablaSabores.setPadding(5);
+        tablaSabores.setBorderWidth(1);
 
-        table.addCell("IMG");
-        cell = new Cell("PRODUCTO ICÓNICO");
-        cell.setColspan(2);
-        table.addCell(cell);
+        //por cada marca
+        Cell brandCell = new Cell();
+        brandCell.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        brandCell.add(imagen);
+        brandCell.add(new Paragraph("MARCA "));
+        table.addCell(brandCell,0,0);
 
-        cell = new Cell("Sabores");
-        cell.setColspan(2);
-        table.addCell(cell);
-        table.addCell("TAMAÑOS");
+        //por cada marca
+        Cell iconicBrandCell = new Cell();
+        iconicBrandCell.setHorizontalAlignment(HorizontalAlignment.CENTER);
+        iconicBrandCell.add(imagen);
+        iconicBrandCell.add(new Chunk("PRODUCTO ICONICO "));
+        table.addCell(iconicBrandCell,0,1);
 
-        cell = new Cell("Sabor de Ejemplo");
-        cell.setColspan(2);
-        table.addCell(cell);
+        //Por cada marca
+        Cell contenedorSaboresCell = new Cell();
+        contenedorSaboresCell.setColspan(2);
+        contenedorSaboresCell.setRowspan(2);
 
-        //Quiero tener una lista en el lugar de la celda por lo tanto
-        //creo una celda nueva para alvergar la tabla
-        Cell cellTamanio = new Cell();
-        //creo la tabla que quiero colocar
-        List lista = new List();
-        //Agrego los items a lista
-        lista.add("1 Lts");
-        lista.add("2.5 Lts");
-        lista.add("5 Lts");
 
-        //agrego la lista a la celda
-        cellTamanio.add(lista);
+        //trabajar con los sabores - tamaños
+        tablaSabores.addCell("Sabores");
+        tablaSabores.addCell("Tamaños");
 
-        //agrego la celda a la tabla. quedando Celda > Lista > items de lista
-        table.addCell(cellTamanio);
 
+
+
+        //guardarlo en el contenedor de sabores
+        contenedorSaboresCell.add(tablaSabores);
+
+//        table.addCell(contenedorSaboresCell,0,1);
+
+
+
+
+
+
+
+
+
+        //ingreso en tabla
 
 
         document.add(table);
+        document.add(tablaSabores);
 
         document.close();
     }
